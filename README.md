@@ -1,14 +1,6 @@
 # Git Style Guide
 
-This is a Git Style Guide inspired by [*How to Get Your Change Into the Linux
-Kernel*](https://www.kernel.org/doc/Documentation/SubmittingPatches),
-the [git man pages](http://git-scm.com/doc) and various practices popular
-among the community.
-
-Translations of the guide are available in the following languages:
-
-* [Chinese Simplified](https://github.com/aseaday/git-style-guide)
-* [Portuguese](https://github.com/guylhermetabosa/git-style-guide)
+This is an in-progress document for the [Unboxed](http://unboxedtech.com) team outlining best practises when using Git. It's inspired by [https://github.com/agis-/git-style-guide](https://github.com/agis-/git-style-guide). Feel free to send a pull requiest if you have anything to add.
 
 If you feel like contributing, please do so! Fork the project and open a pull
 request.
@@ -19,7 +11,8 @@ request.
 2. [Commits](#commits)
   1. [Messages](#messages)
 3. [Merging](#merging)
-4. [Misc.](#misc)
+4. [Maintenance](#maintenance)
+5. [Misc.](#misc)
 
 ## Branches
 
@@ -34,7 +27,7 @@ request.
   ```
 
 * Identifiers from corresponding tickets in an external service (eg. a GitHub
-  issue) are also good candidates for use in branch names. For example:
+  issue or Liquid Planner ID) are also good candidates for use in branch names. For example:
 
   ```shell
   # GitHub issue #15
@@ -59,7 +52,7 @@ request.
 * Delete your branch from the upstream repository after it's merged (unless
   there is a specific reason not to).
 
-  Tip: Use the following command while being on "master", to list merged
+  Tip: Use the following command while on "master" branch, to list merged
   branches:
 
   ```shell
@@ -211,6 +204,27 @@ request.
   $ git merge my-branch
   ```
 
+## Maintenance
+
+* Periodially verify the sanity of your repo using the following commands
+  ```shell
+  # You don't need to check dangling objects unless you are missing something
+  $ git fsck
+  
+  # This will removed outdated dangling objects (after the two+ week grace period). 
+  # It will also compress any loose objects git has added since your last gc. 
+  # git will run a minimal gc automatically after certain commands, but doing a manual gc often 
+  # (and "--aggressive" every few hundred changesets) will save space and speed git operations.
+  $ git gc
+  $ git gc --aggressive
+  
+  # Prune remote tracking branches
+  $ git remote update --prune
+  
+  # Check your stash for forgotten work
+  $ git stash list
+  ```
+
 ## Misc.
 
 * There are various workflows and each one has its strengths and weaknesses.
@@ -248,4 +262,5 @@ International license.
 
 # Credits
 
-Agis Anastasopoulos / [@agisanast](https://twitter.com/agisanast) / http://agis.io
+Agis Anastasopoulos / [Git Style Guide](https://github.com/agis-/git-style-guide)
+Seth Robertson / [Git Best Practises](https://sethrobertson.github.io/GitBestPractices/)
